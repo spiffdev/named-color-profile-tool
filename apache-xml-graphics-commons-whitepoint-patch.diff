@@ -1,0 +1,68 @@
+Index: NamedColorProfile.java
+===================================================================
+--- NamedColorProfile.java	(revision 1395900)
++++ NamedColorProfile.java	(working copy)
+@@ -19,6 +19,7 @@
+ 
+ package org.apache.xmlgraphics.java2d.color.profile;
+ 
++import org.apache.xmlgraphics.java2d.color.CIELabColorSpace;
+ import org.apache.xmlgraphics.java2d.color.NamedColorSpace;
+ import org.apache.xmlgraphics.java2d.color.RenderingIntent;
+ 
+@@ -27,10 +28,11 @@
+  */
+ public class NamedColorProfile {
+ 
+-    private String profileName;
+-    private String copyright;
+-    private NamedColorSpace[] namedColors;
+-    private RenderingIntent renderingIntent = RenderingIntent.PERCEPTUAL;
++    private final String profileName;
++    private final String copyright;
++    private final NamedColorSpace[] namedColors;
++    private final RenderingIntent renderingIntent;
++    private final float[] whitePoint;
+ 
+     /**
+      * Creates a new named color profile.
+@@ -41,10 +43,24 @@
+      */
+     public NamedColorProfile(String profileName, String copyright, NamedColorSpace[] namedColors,
+             RenderingIntent intent) {
++        this(profileName, copyright, namedColors, intent, CIELabColorSpace.getD50WhitePoint());
++    }
++
++    /**
++     * Creates a new named color profile.
++     * @param profileName the profile name
++     * @param copyright the copyright
++     * @param namedColors the array of named colors
++     * @param intent the rendering intent
++     * @param whitePoint the white point in XYZ coordinates
++     */
++    public NamedColorProfile(String profileName, String copyright, NamedColorSpace[] namedColors,
++            RenderingIntent intent, float[] whitePoint) {
+         this.profileName = profileName;
+         this.copyright = copyright;
+         this.namedColors = namedColors;
+         this.renderingIntent = intent;
++        this.whitePoint = whitePoint;
+     }
+ 
+     /**
+@@ -97,6 +113,14 @@
+         return this.copyright;
+     }
+ 
++    /**
++     * Returns the white point for this profile.
++     * @return the white point in XYZ coordinates
++     */
++    public float[] getWhitePoint() {
++        return whitePoint;
++    }
++
+     /** {@inheritDoc} */
+     @Override
+     public String toString() {
