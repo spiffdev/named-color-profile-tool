@@ -9,6 +9,12 @@ This consists of two parts:
 * Low-level Java code for writing a ICC named color profile.
 * The start of a very simple Java desktop GUI to generate a profile (this is buggy!)
 
-My recommendation is to just use the low-level writing code. But even that might not exactly produce files that are conformant to the ICC specification. It does produce files that are compatible with the counterpart reading code in Apache Batik and FOP.
+Jeremias' recommendation is to just use the low-level writing code. But even that might not exactly produce files that are conformant to the ICC specification. It does produce files that are compatible with the counterpart reading code in Apache Batik and FOP.
 
-There's a little patch (`apache-xml-graphics-commons-whitepoint-patch.diff`) here that needs to by apply against an old Apache XML Graphics Commons (~1.5) that adds a whitepoint parameter to the NamedColorProfile class. Therefore, xmlgraphics-commons.jar is not included here.
+Contains a patched version of apache xmlgraphics-commons-1.5. That lib was built from source, after applying the patch `apache-xml-graphics-commons-whitepoint-patch.diff` that adds a whitepoint parameter to the NamedColorProfile class.
+
+There appears to currently be no functionality to read ICC files, just write them.
+
+## To run
+
+Click the play button that Intellij Idea puts next to the signature of NCPApplication.
